@@ -14,57 +14,47 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.UserService;
 
-/**
- * Servlet implementation class EditController
- */
 @WebServlet("/edit")
 public class EditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    UserService userSerivce = new UserService();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// TODO Auto-generated method stub
+	public EditController() {
+		super();
+	}
+
+	UserService userSerivce = new UserService();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		request.setAttribute("user", userSerivce.getOneUser(username));
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// TODO Auto-generated method stub	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+
 			String username = request.getParameter("username");
 			String firstName = request.getParameter("firstname");
 			String lastName = request.getParameter("lastname");
-			Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthdate"));
 			String description = request.getParameter("description");
-			
+
+			Date birthDate = null;
+			if (request.getParameter("birthdate").length() != 0)
+				birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthdate"));
+
 			userSerivce.updateUser(username, firstName, lastName, birthDate, description);
-			
-			response.sendRedirect("");
+
+			response.sendRedirect("/Demo/");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  
-		
+		}
+
 	}
 
 }

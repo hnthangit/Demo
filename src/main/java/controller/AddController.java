@@ -15,51 +15,42 @@ import javax.servlet.http.HttpServletResponse;
 import model.User;
 import service.UserService;
 
-/**
- * Servlet implementation class AddController
- */
 @WebServlet("/add")
 public class AddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public AddController() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     UserService userService = new UserService();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+			
 			String password = request.getParameter("password");
 			String repassword = request.getParameter("repassword");
 			String username = request.getParameter("username");
 			String firstName = request.getParameter("firstname");
 			String lastName = request.getParameter("lastname");
-			Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthdate"));
 			String description = request.getParameter("description");
+			
+			Date birthDate = null;
+			if (request.getParameter("birthdate").length()!=0)
+				birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthdate"));
 			
 			User user = new User(username, password, firstName, lastName, birthDate, description);
 			
 			if(password.equals(repassword)) {
 				userService.addUser(user);			
-				response.sendRedirect("");
+				response.sendRedirect("/Demo/");
 			}
 			else {
 				request.setAttribute("user", user);
@@ -68,7 +59,6 @@ public class AddController extends HttpServlet {
 			}		
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
 	}

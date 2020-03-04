@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -12,7 +11,7 @@
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="container">
-	<a class="btn btn-primary float-right" href="add">Add</a>
+		<a class="btn btn-primary float-right" href="add">Add</a>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -25,13 +24,10 @@
 			<tbody>
 				<c:forEach items="${listUsers}" var="item">
 					<tr>
-						<td><a href="edit?username=${item.getUsername()}">${item.getFirstName()}</a>
-						</td>
+						<td><a href="edit?username=${item.getUsername()}">${item.getFirstName()}</a></td>
 						<td>${item.getLastName()}</td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd"
-								value="${item.getBirthDate()}" /></td>
-						<td><a href="delete?username=${item.getUsername()}"
-							class="btn btn-warning">Delete</a></td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.getBirthDate()}" /></td>
+						<td><a href="delete?username=${item.getUsername()}" class="btn btn-warning">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
