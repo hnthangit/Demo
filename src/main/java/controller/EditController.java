@@ -26,11 +26,15 @@ public class EditController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = request.getParameter("username");
-		request.setAttribute("user", userSerivce.getOneUser(username));
+		if (request.getParameter("username")==null)
+			response.sendRedirect("/Demo/");
+		else {
+			String username = request.getParameter("username");
+			request.setAttribute("user", userSerivce.getOneUser(username));
 
-		RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
-		rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -7,7 +7,7 @@ import model.User;
 
 public class UserFakeDataDAO {
 
-	static ArrayList<User> list = new ArrayList<User>() {
+	public static ArrayList<User> list = new ArrayList<User>() {
 		private static final long serialVersionUID = 1L;
 		{
 			add(new User("thang", "123", "Thang", "Hoang", null, "Hello"));
@@ -55,5 +55,13 @@ public class UserFakeDataDAO {
 
 	public void addUser(User user) {
 		list.add(user);
+	}
+	
+	public boolean login(String username, String password) {
+		for (User user : list) {
+			if (user.getUsername().equals(username) && user.getPassword().equals(password))
+				return true;			
+		}
+		return false;
 	}
 }

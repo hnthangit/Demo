@@ -1,6 +1,6 @@
 $(document).ready(function($) {
 	
-	//Index page cant save when init
+	//Add page cant save when init
 	$("#submit").attr('disabled', 'true');
 
 	// Required input
