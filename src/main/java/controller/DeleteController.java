@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,19 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import service.UserService;
 
 /**
- * Servlet implementation class IndexController
+ * Servlet implementation class DeleteController
  */
-@WebServlet("")
-public class IndexController extends HttpServlet {
+@WebServlet("/delete")
+public class DeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public IndexController() {
+    public DeleteController() {
+        super();
         // TODO Auto-generated constructor stub
     }
-    
     UserService userService = new UserService();
 
 	/**
@@ -32,10 +30,8 @@ public class IndexController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setAttribute("listUsers", userService.getListUsers());
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
-		
+		userService.deleteUser(request.getParameter("username"));
+		response.sendRedirect("");
 	}
 
 	/**
@@ -45,6 +41,5 @@ public class IndexController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
 
 }

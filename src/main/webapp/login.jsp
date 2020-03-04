@@ -11,8 +11,7 @@
 	<div class="container-fluid">
 		<form>
 			<div class="form-group">
-				<label>Username</label> <input type="text" class="form-control"
-					placeholder="Enter username"> <small id="emailHelp"
+				<label>Username</label> <input type="text" class="form-control"> <small id="emailHelp"
 					class="form-text text-muted"></small>
 			</div>
 			<div class="form-group">
@@ -22,5 +21,6 @@
 			<button type="submit" class="btn btn-primary">Login</button>
 		</form>
 	</div>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

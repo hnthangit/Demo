@@ -12,35 +12,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.User;
 import service.UserService;
 
 /**
- * Servlet implementation class EditController
+ * Servlet implementation class AddController
  */
-@WebServlet("/edit")
-public class EditController extends HttpServlet {
+@WebServlet("/add")
+public class AddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditController() {
+    public AddController() {
         super();
         // TODO Auto-generated constructor stub
     }
     
-    UserService userSerivce = new UserService();
+    UserService userService = new UserService();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
-		request.setAttribute("user", userSerivce.getOneUser(username));
-		
-		RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
 		rd.forward(request, response);
 	}
 
@@ -48,23 +45,32 @@ public class EditController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 		try {
+			String password = request.getParameter("password");
+			String repassword = request.getParameter("repassword");
 			String username = request.getParameter("username");
 			String firstName = request.getParameter("firstname");
 			String lastName = request.getParameter("lastname");
 			Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthdate"));
 			String description = request.getParameter("description");
 			
-			userSerivce.updateUser(username, firstName, lastName, birthDate, description);
+			User user = new User(username, password, firstName, lastName, birthDate, description);
 			
-			response.sendRedirect("");
+			if(password.equals(repassword)) {
+				userService.addUser(user);			
+				response.sendRedirect("");
+			}
+			else {
+				request.setAttribute("user", user);
+				RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
+				rd.forward(request, response);
+			}		
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-		
 	}
 
 }

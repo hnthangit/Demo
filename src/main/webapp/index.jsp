@@ -10,7 +10,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container-fluid">
+	<jsp:include page="navbar.jsp"></jsp:include>
+	<div class="container">
+	<a class="btn btn-primary float-right" href="add">Add</a>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -23,11 +25,13 @@
 			<tbody>
 				<c:forEach items="${listUsers}" var="item">
 					<tr>
-						<td><a href="edit/${item.getFirstName()}">${item.getFirstName()}</a><td>
-						<td>${item.lastName}</td>
+						<td><a href="edit?username=${item.getUsername()}">${item.getFirstName()}</a>
+						</td>
+						<td>${item.getLastName()}</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd"
 								value="${item.getBirthDate()}" /></td>
-						<td><a class="btn btn-warning">Delete</a></td>
+						<td><a href="delete?username=${item.getUsername()}"
+							class="btn btn-warning">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
