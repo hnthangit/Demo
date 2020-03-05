@@ -19,48 +19,57 @@ import service.UserService;
 public class AddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public AddController() {
-        super();
-    }
-    
-    UserService userService = new UserService();
+	public AddController() {
+		super();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	UserService userService = new UserService();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
-			
+
 			String password = request.getParameter("password");
 			String repassword = request.getParameter("repassword");
 			String username = request.getParameter("username");
 			String firstName = request.getParameter("firstname");
 			String lastName = request.getParameter("lastname");
 			String description = request.getParameter("description");
-			
+
 			Date birthDate = null;
-			if (request.getParameter("birthdate").length()!=0)
+			if (request.getParameter("birthdate").length() != 0)
 				birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("birthdate"));
-			
+
 			User user = new User(username, password, firstName, lastName, birthDate, description);
-			
-			if(password.equals(repassword)) {
-				userService.addUser(user);			
-				response.sendRedirect("/Demo/");
-			}
-			else {
+
+			if (password.equals(repassword)) {
+				if (userService.addUser(user) == true)
+					//userService.addUser(user);
+					response.sendRedirect("");
+				else {
+					request.setAttribute("user", user);
+					request.setAttribute("coincidenceUsername", true);
+					RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
+					rd.forward(request, response);
+				}
+			} else {
 				request.setAttribute("user", user);
+				request.setAttribute("invalidRepassword", true);
 				RequestDispatcher rd = request.getRequestDispatcher("add.jsp");
 				rd.forward(request, response);
-			}		
-			
+			}
+
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}  
+		}
 	}
 
 }

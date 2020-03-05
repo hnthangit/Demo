@@ -60,28 +60,36 @@ public class UserSqlDAO {
 	}
 
 	public void updateUser(String username, String firstName, String lastName, Date birthDate, String description) {
-	
+
 		try {
 			connectDb.connect();
-			
+
 			String sql = "update user set firstName=?, lastName=?, birthDate=?, description=? where username = ?";
 			PreparedStatement ps = ConnectDB.connect.prepareStatement(sql);
 			ps.setString(1, firstName);
 			ps.setString(2, lastName);
-			java.sql.Date date = new java.sql.Date(birthDate.getTime());
-			ps.setDate(3, date);
+			
+			if (birthDate == null)
+				ps.setDate(3, null);
+			else {
+				java.sql.Date date = new java.sql.Date(birthDate.getTime());
+				ps.setDate(3, date);
+			}
+
 			ps.setString(4, description);
 			ps.setString(5, username);
 			ps.executeUpdate();
 
 			ConnectDB.connect.close();
-		} catch (SQLException e) {
+		} catch (
+
+		SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void deleteUser(String username) {
-		
+
 		try {
 			connectDb.connect();
 
@@ -93,16 +101,48 @@ public class UserSqlDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
-	public void addUser(User user) {
-		list.add(user);
+	public boolean addUser(User user) {
+		if (getOneUser(user.getUsername()) != null)
+			return false;
+		else {
+
+			try {
+				connectDb.connect();
+
+				String sql = "insert into user(username, password, firstName, lastName, birthDate, description) values (?, ?, ?, ?, ?, ?)";
+				PreparedStatement ps;
+
+				ps = ConnectDB.connect.prepareStatement(sql);
+				ps.setString(1, user.getUsername());
+				ps.setString(2, user.getPassword());
+				ps.setString(3, user.getFirstName());
+				ps.setString(4, user.getLastName());
+				
+				if (user.getBirthDate() == null)
+					ps.setDate(5, null);
+				else {
+					java.sql.Date date = new java.sql.Date(user.getBirthDate().getTime());
+					ps.setDate(5, date);
+				}
+				
+				ps.setString(6, user.getDescription());
+				ps.executeUpdate();
+
+				ConnectDB.connect.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return true;
+		}
+
 	}
 
 	public boolean login(String username, String password) {
-		
+
 		try {
 			connectDb.connect();
 

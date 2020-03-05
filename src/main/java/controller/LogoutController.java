@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/logout")
-public class LogOutController extends HttpServlet {
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public LogOutController() {
+    public LogoutController() {
         super();
     }
 
@@ -20,7 +20,7 @@ public class LogOutController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.removeAttribute("isUserLogin");
 		
-		response.sendRedirect("/Demo/");
+		response.sendRedirect("");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

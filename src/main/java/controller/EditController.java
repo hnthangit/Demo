@@ -27,7 +27,7 @@ public class EditController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getParameter("username")==null)
-			response.sendRedirect("/Demo/");
+			response.sendRedirect("");
 		else {
 			String username = request.getParameter("username");
 			request.setAttribute("user", userSerivce.getOneUser(username));
@@ -54,7 +54,7 @@ public class EditController extends HttpServlet {
 
 			userSerivce.updateUser(username, firstName, lastName, birthDate, description);
 
-			response.sendRedirect("/Demo/");
+			response.sendRedirect("");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

@@ -11,9 +11,11 @@
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="container">
-		<c:if test="${user !=null}">
-			<p style="color: red">Password must equal repassword
-			<p>
+		<c:if test="${invalidRepassword==true}">
+			<p style="color: red">Password must equal repassword</p>
+		</c:if>
+		<c:if test="${coincidenceUsername ==true}">
+			<p style="color: red">Username exist</p>
 		</c:if>
 		<form method="post">
 			<div class="form-group">

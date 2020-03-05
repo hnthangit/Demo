@@ -27,8 +27,8 @@ public class UserService {
 		userDAO.deleteUser(username);
 	}
 
-	public void addUser(User user) {
-		userDAO.addUser(user);
+	public boolean addUser(User user) {
+		return userDAO.addUser(user);
 	}
 	
 	public boolean login(String username, String password) {
