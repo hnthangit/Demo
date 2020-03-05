@@ -11,10 +11,10 @@
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="container">
-		<a class="btn btn-primary float-right" href="add">Add</a>
+		<a class="btn btn-secondary float-right my-3" href="add">Add</a>
 		<table class="table table-striped">
 			<thead>
-				<tr>
+				<tr class="table-success">
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
 					<th scope="col">Birth Date</th>
@@ -27,7 +27,7 @@
 						<td><a href="edit?username=${item.getUsername()}">${item.getFirstName()}</a></td>
 						<td>${item.getLastName()}</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${item.getBirthDate()}" /></td>
-						<td><a href="delete?username=${item.getUsername()}" class="btn btn-warning">Delete</a></td>
+						<td><a href="delete?username=${item.getUsername()}" class="btn btn-outline-danger">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

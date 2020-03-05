@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="container">
-		<form method="post">
+		<form class="my-2 h-50" method="post">
 			<input type="hidden" name="username" value="${ user.getUsername() }">
 			<div class="form-group">
 				<label>First Name *</label> <input type="text" class="form-control required string" value="${ user.getFirstName() }" name="firstname"> <small style="color: red" class="warning"></small>

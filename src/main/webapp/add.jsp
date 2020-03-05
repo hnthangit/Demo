@@ -17,7 +17,7 @@
 		<c:if test="${coincidenceUsername ==true}">
 			<p style="color: red">Username exist</p>
 		</c:if>
-		<form method="post">
+		<form class="my-2 w-50" method="post">
 			<div class="form-group">
 				<label>Username *</label> <input type="text" class="form-control required" value="${ user.getFirstName() }" name="username"> <small style="color: red" class="warning"></small>
 			</div>

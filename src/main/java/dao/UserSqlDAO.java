@@ -146,9 +146,10 @@ public class UserSqlDAO {
 		try {
 			connectDb.connect();
 
-			String sql = "select * from user where username = ?";
+			String sql = "select * from user where username = ? and password = ?";
 			PreparedStatement ps = ConnectDB.connect.prepareStatement(sql);
 			ps.setString(1, username);
+			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {

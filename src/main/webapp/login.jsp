@@ -9,17 +9,25 @@
 </head>
 <body>
 	<div class="container">
-		<form method="post" action="login">
-			<div class="form-group">
-				<label>Username</label> <input type="text" name="username" class="form-control required"> <small style="color: red" class="warning"></small>
+		<div class="row">
+			<div class="col-md-9 col-lg-8 mx-auto">
+				<h3 class="login-heading mb-4">Login page</h3>
+				<form method="post" action="login">
+					<div class="form-label-group">
+						<label>Username</label> <input type="text" name="username" class="form-control required"> <small style="color: red" class="warning"></small>
+					</div>
+
+					<div class="form-label-group mb-4">
+						<label>Password</label> <input type="password" name="password" class="form-control required"><small style="color: red" class="warning"></small>
+					</div>
+					<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Login</button>
+					<div class="text-center">
+						<p>username: thang</p>
+						<p>pass: 123</p>
+					</div>
+				</form>
 			</div>
-			<div class="form-group">
-				<label>Password</label> <input type="password" name="password" class="form-control required"><small style="color: red" class="warning"></small>
-			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
-		</form>
-		<p>username: thang</p>
-		<p>pass: 123</p>
+		</div>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
